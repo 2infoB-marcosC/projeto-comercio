@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.infob.backend.projeto_comercio.models.Usuario;
@@ -20,5 +21,14 @@ public class UsuarioController {
     @PostMapping ("/cadastrar")
     public Usuario salvar(@RequestBody Usuario usuario) {
         return usuarioService.salvar(usuario);
+    }
+
+    @PostMapping ("/login")
+    public String login(@RequestParam String email, @RequestParam String senha) {
+        boolean logou = usuarioService.login(email, senha);
+        if (logou) {
+            return "Login feito com sucesso!";
+        }
+        return "Login falhado";
     }
 }
